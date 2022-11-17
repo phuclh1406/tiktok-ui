@@ -13,6 +13,8 @@ function Button({
   rounded = false,
   text = false,
   disable = false,
+  leftIcon,
+  rightIcon,
   children,
   className,
   onClick,
@@ -53,7 +55,10 @@ function Button({
   });
   return (
     <Comp className={classes} {...props}>
-      <span>{children}</span>
+      {leftIcon && <span className={cx('icon')}>{leftIcon}</span>}
+      <span className={cx('title')}>{children}</span>
+      {rightIcon && <span className={cx('icon')}>{rightIcon}</span>}
+
     </Comp>
   );
 }
