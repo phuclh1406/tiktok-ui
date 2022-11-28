@@ -3,31 +3,23 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './Header.module.scss';
 import images from '~/assets/images';
 import Tippy from '@tippyjs/react';
-import HeadlessTippy from '@tippyjs/react/headless';
 import Button from '~/components/Button';
-import { useEffect, useState } from 'react';
 import {
-  faCircleXmark,
-  faSpinner,
-  faMagnifyingGlass,
   faEllipsisVertical,
   faCircleQuestion,
   faKeyboard,
   faEarthAsia,
-  faSignIn,
-  faUpload,
-  faCloudUpload,
   faUser,
   faCoins,
   faGear,
   faSignOut,
 } from '@fortawesome/free-solid-svg-icons';
-import { Wrapper as PoperWrapper } from '~/components/Popper';
-import AccountItem from '../../AccountItem';
+import Search from '../Search'
+
 import Menu from '~/components/Popper/Menu';
 import 'tippy.js/dist/tippy.css';
 import { InboxIcon, MessageIcon, UploadIcon } from '~/components/Icons';
-import Image from '~/components/Image'
+import Image from '~/components/Image';
 
 const cx = classNames.bind(styles);
 
@@ -63,14 +55,6 @@ const MENU_ITEMS = [
 ];
 
 function Header() {
-  const [searchResult, setSearchResult] = useState([]);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setSearchResult([]);
-    }, 0);
-  }, []);
-
   const handleMenuChagne = (menuItem) => {
     switch (menuItem.type) {
       case 'language':
@@ -109,36 +93,11 @@ function Header() {
 
   return (
     <header className={cx('wrapper')}>
-      <div className={cx('inner')}>
+      <div className={cx('inner')}>      
         <div className={cx('logo')}>
           <img src={images.logo} alt="Tiktok" />
         </div>
-        <HeadlessTippy
-          interactive
-          visible={searchResult.length > 0}
-          render={(attrs) => (
-            <div className={cx('search-result')} tabIndex="-1" {...attrs}>
-              <PoperWrapper>
-                <h4 className={cx('search-title')}>Accounts</h4>
-                <AccountItem />
-                <AccountItem />
-                <AccountItem />
-              </PoperWrapper>
-            </div>
-          )}
-        >
-          <div className={cx('search')}>
-            <input placeholder="Search accounts and video" spellCheck={false} />
-            <button className={cx('clear')}>
-              <FontAwesomeIcon icon={faCircleXmark} />
-            </button>
-            <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />
-
-            <button className={cx('search-btn')}>
-              <FontAwesomeIcon icon={faMagnifyingGlass} />
-            </button>
-          </div>
-        </HeadlessTippy>
+        <Search />
         <div className={cx('action')}>
           {currentUser ? (
             <>
@@ -169,7 +128,7 @@ function Header() {
           <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChagne}>
             {currentUser ? (
               <Image
-                src="https://ct-imgs.vgcloud.vn/2020/09/01/19/huong-dan-tao-facebook-avatar.jpg"
+                src="https://ict-imgs.vgcloud.vn/2020/09/01/19/huong-dan-tao-facebook-avatar.jpg"
                 className={cx('user-avatar')}
                 alt="Nguyen Van A"
               />
